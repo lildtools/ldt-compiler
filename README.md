@@ -28,6 +28,18 @@ These additional references should also help:
 * [Git](https://git-scm.com/download)
 * [Make](https://www.gnu.org/software/make/#download)
 
+### Install
+
+```sh
+make install
+```
+
+### Watch
+
+```sh
+make watch
+```
+
 
 ---
 
