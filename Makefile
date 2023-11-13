@@ -34,6 +34,9 @@ build:
 	 (echo "[LDT] compile.") && \
 	 (echo "[LDT] build."))
 
+test:
+	((echo "[LDT] Tester run all...") && \
+	 (echo "[LDT] Tester finished."))
 
 watch:
 	((echo "[LDT] FileWatcher start... '${PWD}/src/**/*'") && \

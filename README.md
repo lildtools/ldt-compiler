@@ -40,6 +40,13 @@ make install
 make watch
 ```
 
+---
+
+## Test
+
+```sh
+make test
+```
 
 ---
 
