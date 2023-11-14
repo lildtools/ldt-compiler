@@ -48,8 +48,9 @@ install:
 	 (echo "[LDTC] install."))
 
 test:
-	((echo "[LDTC] Tester run all...") && \
-	 (echo "[LDTC] Tester finished."))
+	((echo "[LDTC] Unit Tester run all...") && \
+	 (/bin/bash src/test/sh/unit/run-all.sh ${unit}) && \
+	 (echo "[LDTC] Unit Tester finished."))
 
 watch:
 	((echo "[LDTC] FileWatcher start... '${PWD}/src/**/*'") && \
