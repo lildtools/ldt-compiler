@@ -8,20 +8,20 @@ validate() {
     if [ "$ldtc_cmd" = "--usage" ]; then ldtc_cmd=usage; fi
     if [ "$ldtc_cmd" = "usage" ]; then ldtc_target=print; fi
 
-    if [ ! "$ldtc_cmd" = "" ] &&
-        [ ! "$ldtc_cmd" = "compile" ] &&
-        [ ! "$ldtc_cmd" = "usage" ]; then
+    if [ ! "$ldtc_cmd" = "usage" ] &&
+        [ ! "$ldtc_cmd" = "compile" ]; then
         $logger logError "Unknown command!"
         $logger logDebug "-- cause: ldtc_cmd=$ldtc_cmd"
         exit 400
     fi
 
-    if [ ! "$ldtc_target" = "" ] &&
+    if [ ! "$ldtc_target" = "print" ] &&
         [ ! "$ldtc_target" = "bash-app" ] &&
         [ ! "$ldtc_target" = "bash-application" ] &&
         [ ! "$ldtc_target" = "compose" ] &&
         [ ! "$ldtc_target" = "docker-compose" ] &&
-        [ ! "$ldtc_target" = "print" ]; then
+        [ ! "$ldtc_target" = "nginx" ] &&
+        [ ! "$ldtc_target" = "nginx-config" ]; then
         $logger logError "Unknown target!"
         $logger logDebug "-- cause: ldtc_target=$ldtc_target"
         exit 400

@@ -45,7 +45,11 @@ load() {
     if [ -f $ldtc_workindDir/ldtc.env ]; then
         export $(cat $ldtc_workindDir/ldtc.env | xargs)
     fi
+    if [ -f $ldtc_workindDir/ldt-compiler.env ]; then
+        export $(cat $ldtc_workindDir/ldt-compiler.env | xargs)
+    fi
 
+    LDT_LOGGER_PREFIX="[LDTC]"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         LDT_LOGGER_LEVEL=DEBUG
     else
@@ -66,20 +70,20 @@ validate() {
     if [ "$ldtc_cmd" = "--usage" ]; then ldtc_cmd=usage; fi
     if [ "$ldtc_cmd" = "usage" ]; then ldtc_target=print; fi
 
-    if [ ! "$ldtc_cmd" = "" ] &&
-        [ ! "$ldtc_cmd" = "compile" ] &&
-        [ ! "$ldtc_cmd" = "usage" ]; then
+    if [ ! "$ldtc_cmd" = "usage" ] &&
+        [ ! "$ldtc_cmd" = "compile" ]; then
         $logger logError "Unknown command!"
         $logger logDebug "-- cause: ldtc_cmd=$ldtc_cmd"
         exit 400
     fi
 
-    if [ ! "$ldtc_target" = "" ] &&
+    if [ ! "$ldtc_target" = "print" ] &&
         [ ! "$ldtc_target" = "bash-app" ] &&
         [ ! "$ldtc_target" = "bash-application" ] &&
         [ ! "$ldtc_target" = "compose" ] &&
         [ ! "$ldtc_target" = "docker-compose" ] &&
-        [ ! "$ldtc_target" = "print" ]; then
+        [ ! "$ldtc_target" = "nginx" ] &&
+        [ ! "$ldtc_target" = "nginx-config" ]; then
         $logger logError "Unknown target!"
         $logger logDebug "-- cause: ldtc_target=$ldtc_target"
         exit 400
@@ -97,6 +101,11 @@ validate() {
     fi
 }
 run() {
+    if [ "$ldtc_cmd" = "usage" ]; then
+        if [ "$ldtc_target" = "print" ]; then
+            doPrintUsage
+        fi
+    fi
     if [ "$ldtc_cmd" = "compile" ]; then
         if [ "$ldtc_target" = "bash-app" ]; then
             doCompileBashApplication
@@ -110,10 +119,11 @@ run() {
         if [ "$ldtc_target" = "docker-compose" ]; then
             doCompileDockerCompose
         fi
-    fi
-    if [ "$ldtc_cmd" = "usage" ]; then
-        if [ "$ldtc_target" = "print" ]; then
-            doPrintUsage
+        if [ "$ldtc_target" = "nginx" ]; then
+            doCompileNginxConf
+        fi
+        if [ "$ldtc_target" = "nginx-config" ]; then
+            doCompileNginxConf
         fi
     fi
 }
@@ -155,6 +165,19 @@ doCompileBashApplication() {
     $logger logDebug "compile: BashApplication..."
 
     echo "TODO: doCompileBashApplication"
+
+    $logger logDebug "compiled."
+    $logger logDebug "done."
+}
+doCompileNginxConf() {
+    $logger logDebug "running..."
+    $logger logDebug "-- ldtc_cmd=$ldtc_cmd"
+    $logger logDebug "-- ldtc_me=$ldtc_me"
+    $logger logDebug "-- ldtc_target=$ldtc_target"
+    $logger logDebug "-- ldtc_workindDir=$ldtc_workindDir"
+    $logger logDebug "compile: BashApplication..."
+
+    echo "TODO: doCompileNginxConf"
 
     $logger logDebug "compiled."
     $logger logDebug "done."
