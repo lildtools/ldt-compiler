@@ -41,6 +41,11 @@ clean:
 	 (if [ -d ${DIST} ]; then rm -rf ${DIST}; fi) && \
 	 (echo "[LDTC] clean."))
 
+e2e:
+	((echo "[LDTC] E2E Tester run all...") && \
+	 (/bin/bash src/test/sh/integration/run-all.sh ${testCase}) && \
+	 (echo "[LDTC] E2E Tester finished."))
+
 install:
 	((echo "[LDTC] install...") && \
 	 (apt-get update) && \

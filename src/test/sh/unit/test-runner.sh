@@ -12,16 +12,16 @@ main() {
     fi
 
     /bin/bash $scriptFile
+    testResult=$?
 
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         printf "  -- done: $scriptName.test\n"
         printf "  test finished: $(date +"%Y-%m-%d %H:%M:%S.%3N")\n"
     fi
-    printf "$scriptName.test:"
-    if [ $? -ne 0 ]; then
-        printf " failed.\n"
+    if [ $testResult -ne 0 ]; then
+        printf "%-80s: failed.\n" "$scriptName.test"
     else
-        printf " ok.\n"
+        printf "%-80s: ok.\n" "$scriptName.test"
     fi
 }
 
