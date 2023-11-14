@@ -10,7 +10,11 @@ load() {
     if [ -f $ldtc_workindDir/ldtc.env ]; then
         export $(cat $ldtc_workindDir/ldtc.env | xargs)
     fi
+    if [ -f $ldtc_workindDir/ldt-compiler.env ]; then
+        export $(cat $ldtc_workindDir/ldt-compiler.env | xargs)
+    fi
 
+    LDT_LOGGER_PREFIX="[LDTC]"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         LDT_LOGGER_LEVEL=DEBUG
     else
