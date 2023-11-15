@@ -247,7 +247,7 @@ targets:
 "
 }
 doPrintVersion() {
-echo "ldt-compiler v0.5.0"
+echo "ldt-compiler v1.0.0-SNAPSHOT"
 }
 doCompileDockerCompose() {
     $logger logDebug "running..."
