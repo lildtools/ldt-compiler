@@ -11,6 +11,7 @@ default: clean build
 .SILENT: install
 .SILENT: test
 .SILENT: usage
+.SILENT: version
 .SILENT: watch
 
 ###########################################################################
