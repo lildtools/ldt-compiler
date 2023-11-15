@@ -11,7 +11,7 @@ main() {
         cmd=$(ls -a $testPath | grep .e2e.sh | xargs -I % echo "$testRunner $testPath/e2e-runner.sh \"%\" ; ")
         eval $cmd
     else
-        $testRunner $testPath/e2e-runner.sh "$testCase"
+        $testRunner $testPath/e2e-runner.sh "tc_$testCase.e2e.sh"
     fi
 }
 
