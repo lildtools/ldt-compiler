@@ -157,6 +157,7 @@ validate() {
         $logger logDebug "-- cause: ldtc_workindDir=$ldtc_workindDir"
         exit 404
     fi
+
     if [ ! -d "$ldtc_workindDir" ]; then
         $logger logError "Working directory is invalid!"
         $logger logDebug "-- cause: ldtc_workindDir=$ldtc_workindDir"
@@ -167,9 +168,11 @@ validate() {
     if [ "$ldtc_input" = "" ]; then
         ldtc_input=$ldtc_workindDir
     fi
+
     if [ "$ldtc_output" = "" ]; then
         ldtc_output=$ldtc_workindDir/dist
     fi
+
     if [ "$ldtc_fileName" = "" ]; then
         distFileName=$(basename $ldtc_workindDir)
         if [ -f "$ldtc_workindDir/VERSION" ]; then
@@ -179,6 +182,7 @@ validate() {
         fi
         ldtc_fileName="$distFileName-$distFileVersion.sh"
     fi
+
     if [ "$ldtc_chmod" = "" ] ||
         [ "$ldtc_chmod" = "-1" ]; then
         ldtc_chmod=000
@@ -186,34 +190,18 @@ validate() {
 }
 run() {
     if [ "$ldtc_cmd" = "version" ]; then
-        if [ "$ldtc_target" = "print" ]; then
-            doPrintVersion
-        fi
+        if [ "$ldtc_target" = "print" ]; then doPrintVersion; fi
     fi
     if [ "$ldtc_cmd" = "usage" ]; then
-        if [ "$ldtc_target" = "print" ]; then
-            doPrintUsage
-        fi
+        if [ "$ldtc_target" = "print" ]; then doPrintUsage; fi
     fi
     if [ "$ldtc_cmd" = "compile" ]; then
-        if [ "$ldtc_target" = "bash-app" ]; then
-            doCompileBashApplication
-        fi
-        if [ "$ldtc_target" = "bash-application" ]; then
-            doCompileBashApplication
-        fi
-        if [ "$ldtc_target" = "compose" ]; then
-            doCompileDockerCompose
-        fi
-        if [ "$ldtc_target" = "docker-compose" ]; then
-            doCompileDockerCompose
-        fi
-        if [ "$ldtc_target" = "nginx" ]; then
-            doCompileNginxConf
-        fi
-        if [ "$ldtc_target" = "nginx-config" ]; then
-            doCompileNginxConf
-        fi
+        if [ "$ldtc_target" = "bash-app" ]; then doCompileBashApplication; fi
+        if [ "$ldtc_target" = "bash-application" ]; then doCompileBashApplication; fi
+        if [ "$ldtc_target" = "compose" ]; then doCompileDockerCompose; fi
+        if [ "$ldtc_target" = "docker-compose" ]; then doCompileDockerCompose; fi
+        if [ "$ldtc_target" = "nginx" ]; then doCompileNginxConf; fi
+        if [ "$ldtc_target" = "nginx-config" ]; then doCompileNginxConf; fi
     fi
 }
 doPrintUsage() {
