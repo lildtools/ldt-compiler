@@ -19,9 +19,9 @@ main() {
         printf "  test finished: $(date +"%Y-%m-%d %H:%M:%S.%3N")\n"
     fi
     if [ $testResult -ne 0 ]; then
-        printf "%-80s: failed.\n" "$scriptName.test"
+        printf "%-45s: failed.\n" "$scriptName.test"
     else
-        printf "%-80s: ok.\n" "$scriptName.test"
+        printf "%-45s: ok.\n" "$scriptName.test"
     fi
 }
 

@@ -8,13 +8,11 @@ main() {
 
     if [ -f $testEnv ]; then export $(cat $testEnv | xargs); fi
 
-    if [ ! "$testCase" = "" ]; then
-        $testRunner $testPath/ldt-compiler.e2e.sh "$testCase"
+    if [ "$testCase" = "" ]; then
+        cmd=$(ls -a $testPath | grep .e2e.sh | xargs -I % echo "$testRunner $testPath/ldt-compiler-runner.sh \"%\" ; ")
+        eval $cmd
     else
-        $testRunner $testPath/ldt-compiler.e2e.sh "printUsage_shouldPrintUsageTextFileContent"
-        $testRunner $testPath/ldt-compiler.e2e.sh "compileBashApplication_shouldCompileFromInputProjectToOutputFolder"
-        $testRunner $testPath/ldt-compiler.e2e.sh "compileDockerCompose_shouldComposeServicesFromInputProjectToOutputFolder"
-        $testRunner $testPath/ldt-compiler.e2e.sh "compileNginxConf_shouldGenerateConfigIntoOutputFolder"
+        $testRunner $testPath/ldt-compiler-runner.sh "$testCase"
     fi
 }
 

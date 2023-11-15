@@ -1,5 +1,3 @@
-## ldt-compiler
-
 .SILENT: default
 default: clean build
 
@@ -9,12 +7,16 @@ default: clean build
 .PHONY:  compile
 .SILENT: e2e
 .SILENT: install
+.SILENT: portable
 .SILENT: test
 .SILENT: usage
+.SILENT: version
 .SILENT: watch
 
 ###########################################################################
 APP_NAME     := ldt-compiler
+APP_CODENAME := LDTC
+APP_CMD      := ldtc
 APP_VERSION  := $(shell cat ./VERSION)
 APP_ALIAS    := ${PWD}/dist/${APP_NAME}-${APP_VERSION}.sh
 
@@ -29,41 +31,48 @@ RESOURCES    := ./src/main/resources/
 
 ###########################################################################
 build:
-	((echo "[LDTC] build...") && \
+	((echo "[${APP_CODENAME}] build...") && \
 	 (if [ ! -d ${DIST} ]; then mkdir ${DIST}; fi) && \
-	 (echo "[LDTC] compile...") && \
+	 (echo "[${APP_CODENAME}] compile...") && \
 	 (if [ -d ${DIST} ]; then make --silent compile; fi) && \
-	 (echo "[LDTC] compile.") && \
-	 (echo "[LDTC] build."))
+	 (echo "[${APP_CODENAME}] compile.") && \
+	 (echo "[${APP_CODENAME}] build."))
 
 clean:
-	((echo "[LDTC] clean...") && \
+	((echo "[${APP_CODENAME}] clean...") && \
 	 (if [ -d ${DIST} ]; then rm -rf ${DIST}; fi) && \
-	 (echo "[LDTC] clean."))
+	 (echo "[${APP_CODENAME}] clean."))
 
 e2e:
-	((echo "[LDTC] E2E Tester run all...") && \
+	((echo "[${APP_CODENAME}] E2E Tester run all...") && \
 	 (/bin/bash src/test/sh/integration/run-all.sh ${testCase}) && \
-	 (echo "[LDTC] E2E Tester finished."))
+	 (echo "[${APP_CODENAME}] E2E Tester finished."))
 
 install:
-	((echo "[LDTC] install...") && \
+	((echo "[${APP_CODENAME}] install...") && \
 	 (apt-get update) && \
 	 (apt-get install -y inotify-tools) && \
-	 (echo "[LDTC] install."))
+	 (echo "[${APP_CODENAME}] install."))
+
+portable:
+	((echo "[${APP_CODENAME}] portable setup...") && \
+	 (if [ -f ~/.bash_aliases ]; then \
+	    if [ "$(shell cat ~/.bash_aliases | grep ${APP_CMD})" = "" ]; then \
+		  echo "alias ${APP_CMD}=\"${APP_ALIAS}\"">>~/.bash_aliases; fi ; fi) && \
+	 (echo "[${APP_CODENAME}] portable setup."))
 
 test:
-	((echo "[LDTC] Unit Tester run all...") && \
+	((echo "[${APP_CODENAME}] Unit Tester run all...") && \
 	 (/bin/bash src/test/sh/unit/run-all.sh ${unit}) && \
-	 (echo "[LDTC] Unit Tester finished."))
+	 (echo "[${APP_CODENAME}] Unit Tester finished."))
 
 watch:
-	((echo "[LDTC] FileWatcher start... '${PWD}/src/**/*'") && \
+	((echo "[${APP_CODENAME}] FileWatcher start... '${PWD}/src/**/*'") && \
 	 (make compile) && \
 	 (while inotifywait -q -r -e modify,move,create,delete ${SRC} >/dev/null; do \
 	    make compile; \
 	  done;) && \
-	 (echo "[LDTC] FileWatcher finished."))
+	 (echo "[${APP_CODENAME}] FileWatcher finished."))
 
 usage:
 	((echo "doPrintUsage() {">${SRC_TASKS}doPrintUsage.sh) && \
@@ -72,8 +81,14 @@ usage:
 	 (echo "\"">>${SRC_TASKS}doPrintUsage.sh) && \
 	 (echo "}">>${SRC_TASKS}doPrintUsage.sh))
 
+version:
+	((echo "doPrintVersion() {">${SRC_TASKS}doPrintVersion.sh) && \
+	 (echo "echo \"${APP_NAME} v${APP_VERSION}\"">>${SRC_TASKS}doPrintVersion.sh) && \
+	 (echo "}">>${SRC_TASKS}doPrintVersion.sh))
+
 compile:
 	((if [ -f ${RESOURCES}USAGE.txt ]; then make usage; fi) && \
+	 (if [ -f ${PWD}/VERSION ]; then make version; fi) && \
 	 (cat ${SRC_APP}main.sh >${DIST_FILE}) && \
 	 (cat ${SRC_APP}parser.sh >>${DIST_FILE}) && \
 	 (cat ${SRC_APP}loader.sh >>${DIST_FILE}) && \
@@ -81,4 +96,4 @@ compile:
 	 (cat ${SRC_APP}router.sh >>${DIST_FILE}) && \
 	 (find ${SRC_TASKS} -name '*.sh' -exec cat "{}" \; >>${DIST_FILE}) && \
 	 (cat ${SRC_APP}runner.sh >>${DIST_FILE}) && \
-	 (chmod 755 ${DIST_FILE}))
+	 (chmod 700 ${DIST_FILE}))

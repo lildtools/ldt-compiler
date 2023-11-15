@@ -1,16 +1,30 @@
 doPrintUsage() {
 echo "=============================================
-USAGE:
-  ldtc <task> [args]
+USAGE: ldtc <task> [args]
 
 tasks:
-  task1  -  some task
-  task2  -  some task
-  task3  -  some task
+  usage             -  prints the usage informations to the console
+  compile           -  compiles the project from the input folder to the output file in the output folder
 
 args:
-  arg1   - some arg
-  arg2   - some arg
-  arg3   - some arg
+  --debug           -  allow to print more informative debug informations to the console
+  --chmod           -  set the chmod value for the compiled script file
+  -f                -  alias for fileName arg
+  --fileName        -  set the output file name, if not set the default will be the following: \"\$output/\$projectName-\$projectVersion.sh\"
+  -i                -  alias for input arg
+  --input           -  set the input project path, if not set the default will be the working directory root path
+  -o                -  alias for output arg
+  --output          -  set the output folder path, if not set the default will be the \"dist/\" folder under the working directory 
+  -t                -  alias for target arg
+  --target          -  targets are the task controllers, allows you to complie more specificly
+
+targets:
+  print             -  only debug purposes, to debug if you develop the project
+  bash-app          -  alias for bash-application target
+  bash-application  -  the target of the compiler will be a bash script with separated script, but you want to compile those script files in one file
+  compose           -  alias for docker-compose target
+  docker-compose    -  the target of the compiler will be a docker-compose file with separated service definitions, and you want to create a fully configured docker-compose.yml file
+  nginx             -  alias for nginx-config target
+  nginx-config      -  the target of the compiler will be an nginx configuration file with more than one configuration possibilities
 "
 }
