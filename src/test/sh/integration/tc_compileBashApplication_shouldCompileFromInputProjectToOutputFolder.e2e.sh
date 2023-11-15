@@ -5,7 +5,7 @@ main() {
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         $cmd
     fi
-    result=$($cmd | grep TODO:)
+    result=$($cmd | grep compiled.)
     if [ "$result" = "" ]; then exit 400; fi
     exit 0
 }
