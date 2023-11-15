@@ -67,13 +67,13 @@ load() {
     ## load:variables
     ldtc_chmod=700
     ldtc_cmd=$1
-    shift
     ldtc_fileName=
     ldtc_input=
     ldtc_me=$(whoami)
     ldtc_output=
     ldtc_target=bash-application
     ldtc_workindDir=$PWD
+    shift
 
     ## load:environment
     if [ -f $ldtc_workindDir/.env ]; then
@@ -221,8 +221,9 @@ echo "=============================================
 USAGE: ldtc <task> [args]
 
 tasks:
-  usage             -  prints the usage informations to the console
   compile           -  compiles the project from the input folder to the output file in the output folder
+  usage             -  prints the usage informations to the console
+  version           -  prints the app-version to the console
 
 args:
   --debug           -  allow to print more informative debug informations to the console
