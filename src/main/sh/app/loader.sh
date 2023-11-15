@@ -2,13 +2,13 @@ load() {
     ## load:variables
     ldtc_chmod=700
     ldtc_cmd=$1
-    shift
     ldtc_fileName=
     ldtc_input=
     ldtc_me=$(whoami)
     ldtc_output=
     ldtc_target=bash-application
     ldtc_workindDir=$PWD
+    shift
 
     ## load:environment
     if [ -f $ldtc_workindDir/.env ]; then
