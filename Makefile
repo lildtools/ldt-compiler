@@ -43,6 +43,7 @@ build:
 clean:
 	((echo "[${APP_CODENAME}] clean...") && \
 	 (if [ -d ${DIST} ]; then rm -rf ${DIST}; fi) && \
+	 (if [ -d ${TEST_OUT} ]; then rm -rf ${TEST_OUT}; fi) && \
 	 (echo "[${APP_CODENAME}] clean."))
 
 e2e:
