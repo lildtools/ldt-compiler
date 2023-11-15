@@ -1,4 +1,9 @@
 run() {
+    if [ "$ldtc_cmd" = "version" ]; then
+        if [ "$ldtc_target" = "print" ]; then
+            doPrintVersion
+        fi
+    fi
     if [ "$ldtc_cmd" = "usage" ]; then
         if [ "$ldtc_target" = "print" ]; then
             doPrintUsage

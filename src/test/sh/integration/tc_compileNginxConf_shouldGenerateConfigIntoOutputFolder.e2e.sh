@@ -1,7 +1,7 @@
 #!/bin/bash
 
 main() {
-    cmd="$1 -t nginx"
+    cmd="$1 --target nginx"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         $cmd
     fi

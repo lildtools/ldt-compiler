@@ -1,7 +1,5 @@
 #!/bin/bash
-
 #<include ldt-logger>
-logger="eval ldt-logger"
 
 main() {
     parse $*

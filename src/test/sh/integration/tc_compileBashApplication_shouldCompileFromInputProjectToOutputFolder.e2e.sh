@@ -1,7 +1,7 @@
 #!/bin/bash
 
 main() {
-    cmd="$1 -t bash-app"
+    cmd="$1 --target bash-app"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         $cmd
     fi

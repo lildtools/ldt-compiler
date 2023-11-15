@@ -1,7 +1,7 @@
 #!/bin/bash
 
 main() {
-    cmd="$1 -h"
+    cmd="$1 --usage"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
         $cmd
     fi

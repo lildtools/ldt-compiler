@@ -8,13 +8,11 @@ main() {
 
     if [ -f $testEnv ]; then export $(cat $testEnv | xargs); fi
 
-    if [ ! "$unit" = "" ]; then
-        $testRunner $testPath/$unit.test.sh
+    if [ "$unit" = "" ]; then
+        cmd=$(ls -a $testPath | grep .test.sh | xargs -I % echo "$testRunner $testPath/% ; ")
+        eval $cmd
     else
-        $testRunner $testPath/doPrintUsage.test.sh
-        $testRunner $testPath/doCompileBashApplication.test.sh
-        $testRunner $testPath/doCompileDockerCompose.test.sh
-        $testRunner $testPath/doCompileNginxConf.test.sh
+        $testRunner $testPath/$unit.test.sh
     fi
 }
 
