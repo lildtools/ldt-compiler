@@ -27,12 +27,14 @@ load() {
     if [ ! "$(command -v $ldtl)" = "" ]; then logger=$ldtl; fi
     if [ ! "$(command -v ldt-logger)" = "" ]; then logger=ldt-logger; fi
     if [ ! "$(command -v ldtLogger)" = "" ]; then logger=ldtLogger; fi
-    LDT_LOGGER_PREFIX="[LDTC]"
+    LDT_LOGGER_LOGPREFIX="LDTC"
     if [ "$LDT_COMPILER_DEBUG_MODE" = "true" ]; then
-        LDT_LOGGER_LEVEL=DEBUG
+        LDT_LOGGER_LOGLEVEL=DEBUG
     else
-        LDT_LOGGER_LEVEL=WARN
+        LDT_LOGGER_LOGLEVEL=WARN
     fi
+    export LDT_LOGGER_LOGPREFIX
+    export LDT_LOGGER_LOGLEVEL
 
     ## load:target
     if [ ! "$LDT_COMPILER_TARGET" = "" ]; then
