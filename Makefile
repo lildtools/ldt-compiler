@@ -21,7 +21,7 @@ APP_CODENAME := LDTC
 APP_CMD      := ldtc
 
 DIST         := ./dist/
-DIST_FILE    := ./dist/${APP_NAME}-${APP_VERSION}.sh
+DIST_FILE    := ./dist/${APP_NAME}.sh
 
 SRC          := ./src/
 SRC_APP      := ./src/main/sh/app/
@@ -56,7 +56,7 @@ portable:
 	((echo "[${APP_CODENAME}] portable setup...") && \
 	 (if [ -f ~/.bash_aliases ]; then \
 	    if [ "$(shell cat ~/.bash_aliases | grep ${APP_CMD})" = "" ]; then \
-		  echo "alias ${APP_CMD}=\"${PWD}/dist/${APP_NAME}-${APP_VERSION}.sh\"">>~/.bash_aliases; fi ; \
+		  echo "alias ${APP_CMD}=\"${PWD}/dist/${APP_NAME}.sh\"">>~/.bash_aliases; fi ; \
 		fi) && \
 	 (echo "[${APP_CODENAME}] portable setup."))
 
