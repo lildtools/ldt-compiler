@@ -15,12 +15,9 @@ default: clean build
 
 ###########################################################################
 APP_NAME     := ldt-compiler
+APP_VERSION  := $(shell cat ./VERSION)
 APP_CODENAME := LDTC
 APP_CMD      := ldtc
-APP_VERSION  := $(shell cat ./VERSION)
-APP_ALIAS    := ${PWD}/dist/${APP_NAME}-${APP_VERSION}.sh
-
-BUILD        := ./build/
 
 DIST         := ./dist/
 DIST_FILE    := ./dist/${APP_NAME}-${APP_VERSION}.sh
@@ -45,7 +42,6 @@ build:
 clean:
 	((echo "[${APP_CODENAME}] clean...") && \
 	 (if [ -d ${DIST} ]; then rm -rf ${DIST}; fi) && \
-	 (if [ -d ${BUILD} ]; then rm -rf ${BUILD}; fi) && \
 	 (if [ -d ${TEST_OUT} ]; then rm -rf ${TEST_OUT}; fi) && \
 	 (echo "[${APP_CODENAME}] clean."))
 
@@ -64,7 +60,7 @@ portable:
 	((echo "[${APP_CODENAME}] portable setup...") && \
 	 (if [ -f ~/.bash_aliases ]; then \
 	    if [ "$(shell cat ~/.bash_aliases | grep ${APP_CMD})" = "" ]; then \
-		  echo "alias ${APP_CMD}=\"${APP_ALIAS}\"">>~/.bash_aliases; fi ; fi) && \
+		  echo "alias ${APP_CMD}=\"${PWD}/dist/${APP_NAME}-${APP_VERSION}.sh\"">>~/.bash_aliases; fi ; fi) && \
 	 (echo "[${APP_CODENAME}] portable setup."))
 
 test:
