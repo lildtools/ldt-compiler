@@ -3,7 +3,6 @@
 ## About
 
 Lightweight compiler for "ldt"projects from [LilDworks](https://www.lildworks.hu).
-
 For further information, please visit the [Official Site](https://www.lildworks.hu/lildtools/ldt-compiler/about.html).
 
 ### Reference Documentation
