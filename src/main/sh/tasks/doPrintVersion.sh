@@ -1,3 +1,3 @@
 doPrintVersion() {
-echo "ldt-compiler v0.6.0"
+echo "ldt-compiler v1.0.0-SNAPSHOT"
 }
