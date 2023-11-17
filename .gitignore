@@ -1,2 +1,5 @@
-build/
+## distribution
+dist/
+
+## compiled output
 out/
