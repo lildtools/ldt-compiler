@@ -20,6 +20,8 @@ APP_CMD      := ldtc
 APP_VERSION  := $(shell cat ./VERSION)
 APP_ALIAS    := ${PWD}/dist/${APP_NAME}-${APP_VERSION}.sh
 
+BUILD        := ./build/
+
 DIST         := ./dist/
 DIST_FILE    := ./dist/${APP_NAME}-${APP_VERSION}.sh
 
@@ -28,6 +30,8 @@ SRC_APP      := ./src/main/sh/app/
 SRC_TASKS    := ./src/main/sh/tasks/
 
 RESOURCES    := ./src/main/resources/
+
+TEST_OUT     := ./out/
 
 ###########################################################################
 build:
@@ -41,6 +45,8 @@ build:
 clean:
 	((echo "[${APP_CODENAME}] clean...") && \
 	 (if [ -d ${DIST} ]; then rm -rf ${DIST}; fi) && \
+	 (if [ -d ${BUILD} ]; then rm -rf ${BUILD}; fi) && \
+	 (if [ -d ${TEST_OUT} ]; then rm -rf ${TEST_OUT}; fi) && \
 	 (echo "[${APP_CODENAME}] clean."))
 
 e2e:
@@ -63,13 +69,14 @@ portable:
 
 test:
 	((echo "[${APP_CODENAME}] Unit Tester run all...") && \
+	 (if [ -d ${TEST_OUT} ]; then rm -rf ${TEST_OUT}; fi) && \
 	 (/bin/bash src/test/sh/unit/run-all.sh ${unit}) && \
 	 (echo "[${APP_CODENAME}] Unit Tester finished."))
 
 watch:
-	((echo "[${APP_CODENAME}] FileWatcher start... '${PWD}/src/**/*'") && \
+	((echo "[${APP_CODENAME}] FileWatcher start... '${PWD}/src/main/**/*'") && \
 	 (make compile) && \
-	 (while inotifywait -q -r -e modify,move,create,delete ${SRC} >/dev/null; do \
+	 (while inotifywait -q -r -e modify,move,create,delete ./src/main/ >/dev/null; do \
 	    make compile; \
 	  done;) && \
 	 (echo "[${APP_CODENAME}] FileWatcher finished."))
