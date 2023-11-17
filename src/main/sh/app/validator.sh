@@ -37,6 +37,7 @@ validate() {
         $logger logDebug "-- cause: ldtc_workindDir=$ldtc_workindDir"
         exit 404
     fi
+
     if [ ! -d "$ldtc_workindDir" ]; then
         $logger logError "Working directory is invalid!"
         $logger logDebug "-- cause: ldtc_workindDir=$ldtc_workindDir"
@@ -47,9 +48,11 @@ validate() {
     if [ "$ldtc_input" = "" ]; then
         ldtc_input=$ldtc_workindDir
     fi
+
     if [ "$ldtc_output" = "" ]; then
         ldtc_output=$ldtc_workindDir/dist
     fi
+
     if [ "$ldtc_fileName" = "" ]; then
         distFileName=$(basename $ldtc_workindDir)
         if [ -f "$ldtc_workindDir/VERSION" ]; then
@@ -59,6 +62,7 @@ validate() {
         fi
         ldtc_fileName="$distFileName-$distFileVersion.sh"
     fi
+
     if [ "$ldtc_chmod" = "" ] ||
         [ "$ldtc_chmod" = "-1" ]; then
         ldtc_chmod=000
